@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta charset="UTF-8" />
+		<title>jsx的小练习</title>
+	    <script type="text/javascript" src="./js/react.development.js"></script>
+	    <script type="text/javascript" src="./js/react-dom.development.js"></script>
+	    <script type="text/javascript" src="./js/babel.min.js"></script>
+		<style>
+		</style>
+	</head>
+    <body>
+        <div id="text"></div>
+
+		<script type="text/babel">
+			// 编写虚拟DOM
+			const VDOM = (
+				<div>
+					<h1>快捷键</h1>
+					<p>设置-键盘快捷方式（列出了所有快捷方式）</p>
+				</div>
+			)
+
+			// 渲染虚拟DOM
+			ReactDOM.render(VDOM,document.getElementById('text'))
+		</script>
+    </body>
+</html>
