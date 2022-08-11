@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>React生命周期(旧)</title>
+		<!-- 引入react核心库 -->
+		<script type="text/javascript" src="../js/react.development.js"></script>
+		<!-- 引入react-dom，用于支撑react操作DOM-->
+		<script type="text/javascript" src="../js/react-dom.development.js"></script>
+		<!-- 引入babel，用于将jsx转为js -->
+		<script type="text/javascript" src="../js/babel.min.js"></script>
+		<style>
+			.a{
+				width: 400px;
+				height: 160px;
+				background-color: orange;
+				padding: 10px;
+			}
+			.b{
+				background-color: gray;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="test"></div>
+        <script type="text/babel">
+            class Life extends React.Component{
+
+                state = {opacity:1}
+
+                romove = (event)=>{
+                    console.log("@@卸载组件@@")
+                    ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+                }
+
+                //组件将要挂载
+				componentWillMount(){
+					console.log('componentWillMount')
+				}
+
+                //组件挂载完毕
+				/* 
+					一般做一些初始化的事情：开启定时器、发送ajax请求、订阅消息等等
+				*/
+				componentDidMount(){
+					console.log('componentDidMount')
+                    this.timer = setInterval(()=> { //指向实例自身，而非对象
+                        console.log("@")
+                        let {opacity} = this.state 
+                        opacity -= 0.1
+                        if(opacity <= 0) opacity = 1
+                        this.setState({opacity})
+                    }, 200)
+				}
+
+                //组件将要卸载
+				/* 
+					一般做一些收尾的事情：关闭定时器、取消订阅消息等等
+				*/
+				componentWillUnmount(){
+					console.log('componentWillUnmount')
+                    //清除定时器
+                    clearInterval(this.timer) //清除实例自身定时器（开启定时器时指向）
+				}
+                 
+                render() {
+                    return (
+                        <div>
+                           <h2 style={{opacity:this.state.opacity}}>一行会周期变化的字！！！</h2>
+                           <button onClick={this.romove}>Remove</button>
+                        </div>
+                    )
+                }
+            }
+
+            ReactDOM.render(<Life/>,document.getElementById('test'))
+        </script>
+    </body>
+</html>
