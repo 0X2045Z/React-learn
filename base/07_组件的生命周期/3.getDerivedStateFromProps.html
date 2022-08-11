@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>React生命周期(旧)</title>
+		<!-- 引入react核心库 -->
+		<script type="text/javascript" src="../js/react.development.js"></script>
+		<!-- 引入react-dom，用于支撑react操作DOM-->
+		<script type="text/javascript" src="../js/react-dom.development.js"></script>
+		<!-- 引入babel，用于将jsx转为js -->
+		<script type="text/javascript" src="../js/babel.min.js"></script>
+	</head>
+	<body>
+        <div id="root"></div>
+        <script type="text/babel">
+            //
+            class Count extends React.Component{
+                state = {count:0}
+
+                add= ()=>{
+                    this.setState({count:this.state.count+1})
+                    console.log("@@",this.state.count)
+                }
+
+                //将props作为state使用，state将变更为只读
+                static getDerivedStateFromProps(props, state){
+                    console.log("@@ getDerivedStateFromProps", props, state)
+                    //return {count:108}
+                    return props
+                }
+
+                render() {
+                    let count = this.state.count
+                    return (
+                        <div>
+                            <h1>当前求和为：{count}</h1>
+                            <button onClick={this.add}>点我+1</button>
+                        </div>
+                    )
+                }
+            }
+
+            //
+            ReactDOM.render(<Count name="pony" count={199}/>,document.getElementById('root'))
+        </script>
+    </body>
+</html>
