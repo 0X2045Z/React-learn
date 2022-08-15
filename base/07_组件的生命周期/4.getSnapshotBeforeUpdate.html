@@ -29,6 +29,15 @@
                     return props
                 }
 
+                getSnapshotBeforeUpdate(){
+					console.log('getSnapshotBeforeUpdate')
+					return '123'
+				}
+
+                componentDidUpdate(prevProps,prevState,snapshotValue){
+					console.log('componentDidUpdate',prevProps,prevState,snapshotValue)
+				}
+
                 render() {
                     let count = this.state.count
                     return (
